@@ -21,11 +21,24 @@ public class Shipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     String toLocation,fromLocation;
     Date expectedDelivery;
-    Role assignedTransporter=Role.TRANSPORTER;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Item item;
+    @ManyToOne
+    @JoinColumn(name = "transporter_id")
+    User assignedTransporter;
 
     @Enumerated(EnumType.STRING)
     private CurrentStatus currentStatus;
+    public Shipment(String toLocation, String fromLocation, Date expectedDelivery, CurrentStatus currentStatus, Item item){
+        this.toLocation=toLocation;
+        this.fromLocation=fromLocation;
+        this.expectedDelivery=expectedDelivery;
+        this.currentStatus=currentStatus;
+        this.item=item;
+
+    }
 }
 

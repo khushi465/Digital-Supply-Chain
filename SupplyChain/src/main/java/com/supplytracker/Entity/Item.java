@@ -2,18 +2,17 @@ package com.supplytracker.Entity;
 
 import java.util.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
 @Data
 @Table(name="items")
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,19 +20,15 @@ public class Item {
 
     private String name;
     private String category;
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "supplier_id", nullable = false)
-    // for foreign key
-    private long supplierId;//fk
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supplier_id", nullable = false)
+    private User supplier;//fk
     private Date createdDate;
 
-    public Item(String name, String category, long supplierId){
+    public Item(String name, String category, User supplier){
         this.name=name;
         this.category=category;
-        this.supplierId=supplierId;
+        this.supplier=supplier;
         this.createdDate=new Date();
-    }
-
-    public Item() {
     }
 }

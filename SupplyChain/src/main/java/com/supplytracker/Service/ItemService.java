@@ -21,7 +21,7 @@ public class ItemService{
         return itemRepo.findById(id).orElse(null);
     }
     public Item createItem(ItemDTO dto){
-        Item item=new Item(dto.getName(), dto.getCategory(), dto.getSupplierId());
+        Item item=new Item(dto.getName(), dto.getCategory(), dto.getSupplier());
         return itemRepo.save(item);
     }
 }
