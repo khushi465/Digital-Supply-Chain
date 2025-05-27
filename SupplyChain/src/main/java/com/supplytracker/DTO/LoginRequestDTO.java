@@ -1,4 +1,4 @@
-package com.example.DigitalSupplyChainTracker.DTO;
+package com.supplytracker.DTO;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

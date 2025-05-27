@@ -1,6 +1,6 @@
-package com.example.DigitalSupplyChainTracker.DTO;
+package com.supplytracker.DTO;
 
-import com.example.DigitalSupplyChainTracker.Enums.Role;
+import com.supplytracker.Enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

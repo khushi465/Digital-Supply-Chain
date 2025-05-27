@@ -1,4 +1,4 @@
-package com.example.DigitalSupplyChainTracker.Config;
+package com.supplytracker.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

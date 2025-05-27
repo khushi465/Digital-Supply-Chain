@@ -1,11 +1,12 @@
-package com.example.DigitalSupplyChainTracker.Service.Implementation;
+package com.supplytracker.Service.Implementation;
 
-import com.example.DigitalSupplyChainTracker.DTO.RegisterRequestDTO;
-import com.example.DigitalSupplyChainTracker.DTO.UserDTO;
-import com.example.DigitalSupplyChainTracker.Entity.User;
-import com.example.DigitalSupplyChainTracker.Enums.Role;
-import com.example.DigitalSupplyChainTracker.Repository.UserRepository;
-import com.example.DigitalSupplyChainTracker.Service.UserService;
+
+import com.supplytracker.DTO.RegisterRequestDTO;
+import com.supplytracker.DTO.UserDTO;
+import com.supplytracker.Entity.User;
+import com.supplytracker.Enums.Role;
+import com.supplytracker.Repository.UserRepository;
+import com.supplytracker.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> getAllUsers() {
         return userRepository.findAll().stream()
-                .map(user -> new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getRole()))
+                .map((User user) -> new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getRole()))
                 .collect(Collectors.toList());
     }
 

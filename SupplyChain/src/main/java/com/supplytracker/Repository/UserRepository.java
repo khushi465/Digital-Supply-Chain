@@ -1,6 +1,6 @@
-package com.example.DigitalSupplyChainTracker.Repository;
+package com.supplytracker.Repository;
 
-import com.example.DigitalSupplyChainTracker.Entity.User;
+import com.supplytracker.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 

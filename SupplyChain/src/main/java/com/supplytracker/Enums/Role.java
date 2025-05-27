@@ -1,4 +1,4 @@
-package com.example.DigitalSupplyChainTracker.Enums;
+package com.supplytracker.Enums;
 
 public enum Role {
     ADMIN,SUPPLIER, TRANSPORTER, MANAGER

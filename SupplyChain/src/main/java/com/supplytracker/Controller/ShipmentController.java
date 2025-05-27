@@ -1,4 +1,4 @@
-package com.example.DigitalSupplyChainTracker.Controller;
+package com.supplytracker.Controller;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.*;
 
 public class ShipmentController {
 
-    @PostMapping("/api/shipments")
-
-    @PutMapping("/api/shipments/{id}/assign")
-
-    @GetMapping("/api/shpiments")
-
-    @GetMapping("/api/shpiments/{id}")
-
-    @PutMapping("/api/shipments/{id}/status")
+//    @PostMapping("/api/shipments")
+//
+//    @PutMapping("/api/shipments/{id}/assign")
+//
+//    @GetMapping("/api/shpiments")
+//
+//    @GetMapping("/api/shpiments/{id}")
+//
+//    @PutMapping("/api/shipments/{id}/status")
 
 }

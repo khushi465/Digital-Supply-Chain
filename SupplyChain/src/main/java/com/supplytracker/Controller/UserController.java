@@ -1,7 +1,8 @@
-package com.example.DigitalSupplyChainTracker.Controller;
+package com.supplytracker.Controller;
 
-import com.example.DigitalSupplyChainTracker.DTO.UserDTO;
-import com.example.DigitalSupplyChainTracker.Service.UserService;
+
+import com.supplytracker.DTO.UserDTO;
+import com.supplytracker.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

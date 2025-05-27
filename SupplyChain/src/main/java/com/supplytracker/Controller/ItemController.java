@@ -1,6 +1,9 @@
-package com.supplytracker.controller;
+package com.supplytracker.Controller;
 import java.util.List;
 
+import com.supplytracker.DTO.ItemDTO;
+import com.supplytracker.Entity.Item;
+import com.supplytracker.Service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.supplytracker.dto.ItemDTO;
-import com.supplytracker.entity.Item;
-import com.supplytracker.service.ItemService;
 
 import jakarta.validation.Valid;
 

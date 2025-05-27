@@ -1,8 +1,9 @@
-package com.example.DigitalSupplyChainTracker.Service;
+package com.supplytracker.Service;
 
-import com.example.DigitalSupplyChainTracker.DTO.RegisterRequestDTO;
-import com.example.DigitalSupplyChainTracker.DTO.UserDTO;
-import com.example.DigitalSupplyChainTracker.Entity.User;
+
+import com.supplytracker.DTO.RegisterRequestDTO;
+import com.supplytracker.DTO.UserDTO;
+import com.supplytracker.Entity.User;
 
 import java.util.List;
 

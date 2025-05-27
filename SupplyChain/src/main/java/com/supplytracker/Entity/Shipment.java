@@ -1,7 +1,8 @@
-package com.example.DigitalSupplyChainTracker.Entity;
+package com.supplytracker.Entity;
 
-import com.example.DigitalSupplyChainTracker.Enums.CurrentStatus;
-import com.example.DigitalSupplyChainTracker.Enums.Role;
+
+import com.supplytracker.Enums.CurrentStatus;
+import com.supplytracker.Enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

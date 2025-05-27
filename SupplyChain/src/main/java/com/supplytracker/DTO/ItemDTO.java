@@ -1,4 +1,4 @@
-package com.supplytracker.dto;
+package com.supplytracker.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;

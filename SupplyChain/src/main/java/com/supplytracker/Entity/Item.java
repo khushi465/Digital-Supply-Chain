@@ -1,4 +1,4 @@
-package com.supplytracker.entity;
+package com.supplytracker.Entity;
 
 import java.util.Date;
 
@@ -32,5 +32,8 @@ public class Item {
         this.category=category;
         this.supplierId=supplierId;
         this.createdDate=new Date();
+    }
+
+    public Item() {
     }
 }

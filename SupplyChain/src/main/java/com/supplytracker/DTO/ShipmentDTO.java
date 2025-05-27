@@ -1,4 +1,4 @@
-package com.example.DigitalSupplyChainTracker.DTO;
+package com.supplytracker.DTO;
 
 public class ShipmentDTO {
 
