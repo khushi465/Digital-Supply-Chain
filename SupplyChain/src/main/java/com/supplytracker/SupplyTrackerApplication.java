@@ -1,4 +1,4 @@
-package com.supplytracker.entity;
+package com.supplytracker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
