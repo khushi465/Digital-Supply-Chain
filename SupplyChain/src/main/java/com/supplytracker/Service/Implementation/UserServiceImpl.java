@@ -20,13 +20,33 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Override
+    /*@Override
     public User registerUser(RegisterRequestDTO requestDTO) {
         User user = new User();
         user.setName(requestDTO.getName());
         user.setEmail(requestDTO.getEmail());
         user.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
         user.setRole(Role.SUPPLIER);
+        return userRepository.save(user);
+    }*/
+
+    @Override
+    public User registerUser(RegisterRequestDTO requestDTO) {
+        User user = new User();
+        user.setName(requestDTO.getName());
+        user.setEmail(requestDTO.getEmail());
+        user.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
+
+        // Check if any admin exists
+        long adminCount = userRepository.countByRole(Role.ADMIN);
+
+        // Assign ADMIN only to the first user, else set null
+        if (adminCount == 0) {
+            user.setRole(Role.ADMIN);
+        } else {
+            user.setRole(null);
+        }
+
         return userRepository.save(user);
     }
 
