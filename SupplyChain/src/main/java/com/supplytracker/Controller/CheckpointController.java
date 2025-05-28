@@ -2,10 +2,10 @@ package com.supplytracker.Controller;
 
 
 import com.supplytracker.DTO.CheckpointDTO;
-import com.supplytracker.DTO.CheckpointDTO;
 import com.supplytracker.DTO.CheckpointResponseDTO;
 import com.supplytracker.Entity.ShipmentCheckpoint;
 import com.supplytracker.Service.CheckpointService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +23,13 @@ public class CheckpointController {
     }
 
     @PostMapping
-    public ResponseEntity<CheckpointResponseDTO> logCheckpoint(@RequestBody CheckpointDTO request){
+    public ResponseEntity<CheckpointResponseDTO> logCheckpoint(@Valid @RequestBody CheckpointDTO request){
         return ResponseEntity.ok(checkpointService.logCheckpoint(request));
 
     }
 
     @GetMapping("/shipment/{shipmentId}")
-    public ResponseEntity<List<CheckpointResponseDTO>> getlogHistory(@PathVariable long shipmentId){
+    public ResponseEntity<List<ShipmentCheckpoint>> getlogHistory(@PathVariable String shipmentId){
         return ResponseEntity.ok(checkpointService.getlogHistory(shipmentId));
     }
 

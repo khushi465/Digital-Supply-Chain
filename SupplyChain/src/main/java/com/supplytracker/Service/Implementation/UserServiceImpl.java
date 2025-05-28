@@ -5,6 +5,7 @@ import com.supplytracker.DTO.RegisterRequestDTO;
 import com.supplytracker.DTO.UserDTO;
 import com.supplytracker.Entity.User;
 import com.supplytracker.Enums.Role;
+import com.supplytracker.Exception.ResourceNotFoundException;
 import com.supplytracker.Repository.UserRepository;
 import com.supplytracker.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -60,9 +61,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO updateUserRole(Long userId, String roleStr) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        Role role = Role.valueOf(roleStr.toUpperCase());
-        user.setRole(role);
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + userId));
+
+        try {
+            Role role = Role.valueOf(roleStr.toUpperCase());
+            user.setRole(role);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid role: " + roleStr);
+        }
+
         userRepository.save(user);
         return new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getRole());
     }

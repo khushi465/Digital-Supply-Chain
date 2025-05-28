@@ -5,6 +5,7 @@ import com.supplytracker.DTO.ShipmentResponseDTO;
 import com.supplytracker.Entity.Shipment;
 import com.supplytracker.Entity.ShipmentCheckpoint;
 import com.supplytracker.Entity.User;
+import com.supplytracker.Exception.ResourceNotFoundException;
 import com.supplytracker.Repository.CheckpointRepository;
 import com.supplytracker.Repository.ShipmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +29,16 @@ public class CheckpointService {
         return new CheckpointResponseDTO(checkpoint);
     }
 
-    public List<CheckpointResponseDTO> getlogHistory(long shipmentId) {
-        List<ShipmentCheckpoint> list = checkpointRepository.findByShipmentId(shipmentId);
-        return list.stream()
-                .map(CheckpointResponseDTO::new)
-                .collect(Collectors.toList());
+    public List<ShipmentCheckpoint> getlogHistory(String shipmentId) {
+        if (shipmentId == null || shipmentId.trim().isEmpty()) {
+            throw new IllegalArgumentException("Shipment ID must not be empty");
+        }
+
+        List<ShipmentCheckpoint> logs = checkpointRepository.findByShipmentId(Long.parseLong(shipmentId));
+        if (logs.isEmpty()) {
+            throw new ResourceNotFoundException("No checkpoint history found for shipment ID: " + shipmentId);
+        }
+        return logs;
     }
 }
 
