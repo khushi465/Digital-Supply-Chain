@@ -8,6 +8,8 @@ import com.supplytracker.Entity.User;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 public class ItemDTO {
@@ -16,8 +18,21 @@ public class ItemDTO {
     public String name;
     @NotBlank(message="Category is required")
     public String category;
-    @NotNull(message = "Supplier ID is required")
-    public Long supplierId;
+
+    public long supplierId;
+
+    public long getSupplierId() {
+        return supplierId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
     // @NotBlank(message="Created date is required")
     // public Date createdDate;
 }

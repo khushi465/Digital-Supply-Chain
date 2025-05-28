@@ -24,4 +24,12 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public String getName() {
+        return name;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }

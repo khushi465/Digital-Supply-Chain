@@ -15,14 +15,32 @@ public class ShipmentCheckpoint {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shipment_id", nullable = false)
-    private String shipmentId;
+    @JoinColumn(name = "shipment_id")
+    private Shipment shipment;
+
     private String status;
     private LocalDateTime timestamp;
 
-
-    public ShipmentCheckpoint() {
+    public ShipmentCheckpoint(Shipment shipment, String status) {
+        this.shipment=shipment;
+        this.status=status;
         this.timestamp = LocalDateTime.now();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public Shipment getShipment() {
+        return shipment;
     }
 
 }

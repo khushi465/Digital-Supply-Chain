@@ -1,6 +1,7 @@
 package com.supplytracker.Controller;
 
 import com.supplytracker.DTO.ShipmentDTO;
+import com.supplytracker.DTO.ShipmentResponseDTO;
 import com.supplytracker.Entity.User;
 import com.supplytracker.Entity.Shipment;
 import com.supplytracker.Enums.CurrentStatus;
@@ -19,20 +20,20 @@ public class ShipmentController {
     @Autowired
     private ShipmentService shipmentService;
     @PostMapping
-    public ResponseEntity<Shipment> addShipment(@Valid @RequestBody ShipmentDTO dto) {
-       Shipment shipment= shipmentService.createShipment(dto);
+    public ResponseEntity<ShipmentResponseDTO> addShipment(@Valid @RequestBody ShipmentDTO dto) {
+       ShipmentResponseDTO shipment= shipmentService.createShipment(dto);
         return new ResponseEntity<>(shipment, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Shipment>> getAllShipments(){
-        List<Shipment> shipments=shipmentService.getAllShipmentsFiltered();
+    public ResponseEntity<List<ShipmentResponseDTO>> getAllShipments(){
+        List<ShipmentResponseDTO> shipments=shipmentService.getAllShipmentsFiltered();
         return new ResponseEntity<>(shipments, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Shipment> getShipmentById(@PathVariable long id){
-        Shipment shipment=shipmentService.getShipmentById(id);
+    public ResponseEntity<ShipmentResponseDTO> getShipmentById(@PathVariable long id){
+        ShipmentResponseDTO shipment=shipmentService.getShipmentById(id);
         if(shipment==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -42,14 +43,14 @@ public class ShipmentController {
 
 
 @PutMapping("/{id}/assign")
-public ResponseEntity<Shipment> assignTransporter(@PathVariable long id, @RequestBody User assignedTransporter) {
-    Shipment shipment = shipmentService.assignTransporter(id, assignedTransporter);
+public ResponseEntity<ShipmentResponseDTO> assignTransporter(@PathVariable long id, @RequestBody User assignedTransporter) {
+    ShipmentResponseDTO shipment = shipmentService.assignTransporter(id, assignedTransporter);
     return new ResponseEntity<>(shipment, HttpStatus.OK);
 }
 
 @PutMapping("/{id}/status")
-    public ResponseEntity<Shipment> updateStatus(@PathVariable long id, @RequestBody CurrentStatus currentStatus){
-        Shipment shipment=shipmentService.updateStatus(id, currentStatus);
+    public ResponseEntity<ShipmentResponseDTO> updateStatus(@PathVariable long id, @RequestBody CurrentStatus currentStatus){
+    ShipmentResponseDTO shipment=shipmentService.updateStatus(id, currentStatus);
         return new ResponseEntity<>(shipment, HttpStatus.OK);
 }
 //    @PutMapping("/api/shipments/{id}/assign")

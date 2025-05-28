@@ -1,10 +1,6 @@
 package com.supplytracker.DTO;
 
-
-import com.supplytracker.Entity.Item;
 import com.supplytracker.Enums.CurrentStatus;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,11 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class ShipmentDTO {
 
     @NotNull(message = "Expected Delivery date needs to be provided.")
@@ -31,8 +25,26 @@ public class ShipmentDTO {
     @NotNull(message = "Current status of the delivery cannot be null.")
     private CurrentStatus currentStatus;
 
-    @ManyToOne
-    @JoinColumn(name="item_id",nullable = false)
+    @NotNull(message = "Item ID is required")
     private Long itemId;
 
+    public String getFromLocation() {
+        return fromLocation;
+    }
+
+    public String getToLocation() {
+        return toLocation;
+    }
+
+    public Long getItemId() {
+        return itemId;
+    }
+
+    public CurrentStatus getCurrentStatus() {
+        return currentStatus;
+    }
+
+    public Date getDate() {
+        return date;
+    }
 }
