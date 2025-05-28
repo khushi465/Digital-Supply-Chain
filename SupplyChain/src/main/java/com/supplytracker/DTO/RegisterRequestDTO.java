@@ -1,5 +1,6 @@
 package com.supplytracker.DTO;
 
+import com.supplytracker.Enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -19,5 +20,18 @@ public class RegisterRequestDTO {
     @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
 
+//    added for now
+//    private Role role;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }

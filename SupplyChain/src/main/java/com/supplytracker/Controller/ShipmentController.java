@@ -5,6 +5,7 @@ import com.supplytracker.DTO.ShipmentResponseDTO;
 import com.supplytracker.Entity.User;
 import com.supplytracker.Entity.Shipment;
 import com.supplytracker.Enums.CurrentStatus;
+import com.supplytracker.Enums.Role;
 import com.supplytracker.Service.ShipmentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +20,25 @@ import java.util.List;
 public class ShipmentController {
     @Autowired
     private ShipmentService shipmentService;
+    @Autowired
+    private SessionManager sessionManager;
     @PostMapping
     public ResponseEntity<ShipmentResponseDTO> addShipment(@Valid @RequestBody ShipmentDTO dto) {
-       ShipmentResponseDTO shipment= shipmentService.createShipment(dto);
+        sessionManager.checkValidUser(Role.ADMIN,Role.TRANSPORTER);
+        ShipmentResponseDTO shipment= shipmentService.createShipment(dto);
         return new ResponseEntity<>(shipment, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<ShipmentResponseDTO>> getAllShipments(){
+        sessionManager.checkValidUser(Role.ADMIN,Role.TRANSPORTER);
         List<ShipmentResponseDTO> shipments=shipmentService.getAllShipmentsFiltered();
         return new ResponseEntity<>(shipments, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ShipmentResponseDTO> getShipmentById(@PathVariable long id){
+        sessionManager.checkValidUser(Role.ADMIN,Role.TRANSPORTER);
         ShipmentResponseDTO shipment=shipmentService.getShipmentById(id);
         if(shipment==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -44,12 +50,14 @@ public class ShipmentController {
 
 @PutMapping("/{id}/assign")
 public ResponseEntity<ShipmentResponseDTO> assignTransporter(@PathVariable long id, @RequestParam long transporterId) {
+    sessionManager.checkValidUser(Role.ADMIN);
     ShipmentResponseDTO shipment = shipmentService.assignTransporter(id, transporterId);
     return new ResponseEntity<>(shipment, HttpStatus.OK);
 }
 
 @PutMapping("/{id}/status")
     public ResponseEntity<ShipmentResponseDTO> updateStatus(@PathVariable long id, @RequestParam String currentStatus){
+    sessionManager.checkValidUser(Role.ADMIN,Role.TRANSPORTER);
     ShipmentResponseDTO shipment=shipmentService.updateStatus(id, currentStatus);
         return new ResponseEntity<>(shipment, HttpStatus.OK);
 }

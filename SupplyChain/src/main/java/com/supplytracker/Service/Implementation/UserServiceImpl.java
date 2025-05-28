@@ -9,6 +9,7 @@ import com.supplytracker.Exception.ResourceNotFoundException;
 import com.supplytracker.Repository.UserRepository;
 import com.supplytracker.Service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,10 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /*@Override
     public User registerUser(RegisterRequestDTO requestDTO) {
@@ -54,7 +57,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> getAllUsers() {
         return userRepository.findAll().stream()
-                .map((User user) -> new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getRole()))
+                .map((User user) -> new UserDTO(user.getName(), user.getEmail(), user.getRole()))
                 .collect(Collectors.toList());
     }
 
@@ -71,7 +74,7 @@ public class UserServiceImpl implements UserService {
         }
 
         userRepository.save(user);
-        return new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getRole());
+        return new UserDTO(user.getName(), user.getEmail(), user.getRole());
     }
 
     @Override

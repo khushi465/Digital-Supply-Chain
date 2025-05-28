@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
-    private Long id;
+
 
     @NotBlank(message = "Name cannot be blank")
     private String name;
@@ -23,4 +23,6 @@ public class UserDTO {
 
     @NotNull(message = "Role is required")
     private Role role;
+
+
 }
