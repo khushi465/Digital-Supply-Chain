@@ -3,8 +3,10 @@ package com.supplytracker.Service;
 import com.supplytracker.DTO.ItemResponseDTO;
 import com.supplytracker.DTO.ShipmentResponseDTO;
 import com.supplytracker.Entity.Item;
+import com.supplytracker.Enums.Role;
 import com.supplytracker.Repository.ItemRepository;
 import com.supplytracker.Repository.ShipmentRepository;
+import com.supplytracker.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.supplytracker.Entity.Shipment;
@@ -20,6 +22,8 @@ public class ShipmentService {
     private ShipmentRepository shipmentRepo;
     @Autowired
     private ItemRepository itemRepo;
+    @Autowired
+    private UserRepository userRepository;
     public List<ShipmentResponseDTO> getAllShipmentsFiltered(){
 //        filtering
         List<Shipment> shipments= shipmentRepo.findAll();
@@ -40,18 +44,21 @@ public class ShipmentService {
         shipment= shipmentRepo.save(shipment);
         return new ShipmentResponseDTO(shipment);
     }
-    public ShipmentResponseDTO assignTransporter(long id, User assignedTransporter){
+    public ShipmentResponseDTO assignTransporter(long id, long transporterId){
         Shipment shipment = shipmentRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Shipment not found with id: " + id));
+        User assignedTransporter = userRepository.findById(transporterId)
+                .orElseThrow(() -> new RuntimeException("Transporter not found"));
         shipment.setAssignedTransporter(assignedTransporter);
         shipment= shipmentRepo.save(shipment);
         return new ShipmentResponseDTO(shipment);
     }
 
-    public ShipmentResponseDTO updateStatus(long id, CurrentStatus currentStatus){
+    public ShipmentResponseDTO updateStatus(long id, String currentStatus){
         Shipment shipment = shipmentRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Shipment not found with id: " + id));
-        shipment.setCurrentStatus(currentStatus);
+        CurrentStatus currentStatus1=CurrentStatus.valueOf(currentStatus.toUpperCase());
+        shipment.setCurrentStatus(currentStatus1);
         shipment= shipmentRepo.save(shipment);
         return new ShipmentResponseDTO(shipment);
     }

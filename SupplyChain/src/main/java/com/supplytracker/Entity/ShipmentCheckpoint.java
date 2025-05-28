@@ -26,6 +26,7 @@ public class ShipmentCheckpoint {
         this.status=status;
         this.timestamp = LocalDateTime.now();
     }
+    public ShipmentCheckpoint(){}
 
     public String getStatus() {
         return status;
