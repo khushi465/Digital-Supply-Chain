@@ -8,8 +8,16 @@ import lombok.Data;
 public class CheckpointDTO {
     @NotEmpty(message = "shipmentId cannot be null")
     @Column(unique = true, nullable = false)
-    private String shipmentId;
+    private long shipmentId;
     @NotEmpty(message = "status cannot be null")
     @Column(nullable = false)
     private String status;
+
+    public long getShipmentId() {
+        return shipmentId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 }

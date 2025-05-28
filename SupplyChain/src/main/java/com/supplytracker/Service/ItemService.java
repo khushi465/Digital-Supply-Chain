@@ -1,10 +1,14 @@
 package com.supplytracker.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.supplytracker.DTO.ItemDTO;
+import com.supplytracker.DTO.ItemResponseDTO;
 import com.supplytracker.Entity.Item;
+import com.supplytracker.Entity.User;
 import com.supplytracker.Repository.ItemRepository;
+import com.supplytracker.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +17,27 @@ import org.springframework.stereotype.Service;
 public class ItemService{
     @Autowired
     public ItemRepository itemRepo;
-    public List<Item> getAllItems(){
-        return itemRepo.findAll();
+    @Autowired
+    public UserRepository userRepository;
+    public List<ItemResponseDTO> getAllItems(){
+
+        List<Item> items= itemRepo.findAll();
+        return items.stream()
+                .map(ItemResponseDTO::new)
+                .collect(Collectors.toList());
     }
 
-    public Item getItemById(long id){
-        return itemRepo.findById(id).orElse(null);
+    public ItemResponseDTO getItemById(long id) {
+        Item item = itemRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item not found with id: " + id));
+        return new ItemResponseDTO(item);
     }
-    public Item createItem(ItemDTO dto){
-        Item item=new Item(dto.getName(), dto.getCategory(), dto.getSupplier());
-        return itemRepo.save(item);
+    public ItemResponseDTO createItem(ItemDTO dto) {
+        User supplier = userRepository.findById(dto.getSupplierId())
+                .orElseThrow(() -> new RuntimeException("Supplier with ID " + dto.getSupplierId() + " not found"));
+
+        Item item = new Item(dto.getName(), dto.getCategory(), supplier);
+        item = itemRepo.save(item);
+        return new ItemResponseDTO(item);
     }
 }
