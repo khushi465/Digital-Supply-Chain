@@ -2,6 +2,7 @@ package com.supplytracker.Entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +23,8 @@ public class Item {
     private String category;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id", nullable = false)
-    private User supplier;//fk
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private User supplier;
     private Date createdDate;
 
     public Item(String name, String category, User supplier){
@@ -30,5 +32,25 @@ public class Item {
         this.category=category;
         this.supplier=supplier;
         this.createdDate=new Date();
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public User getSupplier() {
+        return supplier;
     }
 }

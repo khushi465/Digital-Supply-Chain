@@ -2,6 +2,7 @@ package com.supplytracker.Controller;
 import java.util.List;
 
 import com.supplytracker.DTO.ItemDTO;
+import com.supplytracker.DTO.ItemResponseDTO;
 import com.supplytracker.Entity.Item;
 import com.supplytracker.Service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,18 +26,18 @@ public class ItemController{
     @Autowired
     private ItemService itemService;
     @GetMapping
-    public ResponseEntity<List<Item>> getAll() {
-        List<Item> items=itemService.getAllItems();
+    public ResponseEntity<List<ItemResponseDTO>> getAll() {
+        List<ItemResponseDTO> items=itemService.getAllItems();
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity<Item> addItem(@Valid @RequestBody ItemDTO dto) {
-        Item item=itemService.createItem(dto);
+    public ResponseEntity<ItemResponseDTO> addItem(@Valid @RequestBody ItemDTO dto) {
+        ItemResponseDTO item=itemService.createItem(dto);
         return new ResponseEntity<>(item,HttpStatus.CREATED);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Item> getItem(@PathVariable long id) {
-        Item item=itemService.getItemById(id);
+    public ResponseEntity<ItemResponseDTO> getItem(@PathVariable long id) {
+        ItemResponseDTO item=itemService.getItemById(id);
         if(item==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             // returns not found status 404 if item is not found
