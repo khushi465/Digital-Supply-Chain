@@ -12,14 +12,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class TransporterUpdateStatus {
+    @Autowired
     private MockMvc mockMvc;
 
     @Test
     void testUpdateShipmentStatus() throws Exception {
-        String payload = "{\"status\":\"IN_TRANSIT\"}";
         mockMvc.perform(put("/api/shipments/1/status")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(payload))
+                        .param("currentStatus", "IN_TRANSIT"))  // <-- send as query param
                 .andExpect(status().isOk());
     }
 }
