@@ -29,7 +29,7 @@ public class CheckpointService {
         return new CheckpointResponseDTO(checkpoint);
     }
 
-    public List<ShipmentCheckpoint> getlogHistory(String shipmentId) {
+    public List<CheckpointResponseDTO> getlogHistory(String shipmentId) {
         if (shipmentId == null || shipmentId.trim().isEmpty()) {
             throw new IllegalArgumentException("Shipment ID must not be empty");
         }
@@ -38,8 +38,11 @@ public class CheckpointService {
         if (logs.isEmpty()) {
             throw new ResourceNotFoundException("No checkpoint history found for shipment ID: " + shipmentId);
         }
-        return logs;
+        return logs.stream()
+                .map(CheckpointResponseDTO::new)  // assuming you have constructor CheckpointResponseDTO(ShipmentCheckpoint)
+                .collect(Collectors.toList());
     }
 }
+
 
 //remove json ignore in entity, add response dto and use in service and controller

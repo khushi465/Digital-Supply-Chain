@@ -1,13 +1,17 @@
-package com.supplytracker.controller;
+package com.supplytracker.Controller;
 
-import com.supplytracker.model.Shipment;
-import com.supplytracker.model.enums.CurrentStatus;
-import com.supplytracker.repository.ShipmentRepository;
-import com.supplytracker.repository.CheckpointLogRepository;
+import com.supplytracker.DTO.ShipmentResponseDTO;
+import com.supplytracker.Enums.Role;
+import com.supplytracker.Repository.CheckpointRepository;
+import com.supplytracker.Entity.Shipment;
+import com.supplytracker.Enums.CurrentStatus;
+import com.supplytracker.Repository.ShipmentRepository;
+import com.supplytracker.Repository.CheckpointRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/reports")
@@ -18,15 +22,26 @@ public class ReportController {
 
     @Autowired
     private CheckpointRepository checkpointLogRepository;
+    @Autowired
+    private SessionManager sessionManager;
 
 
     @GetMapping("/delayed-shipments")
-    public List<Shipment> getDelayedShipments() {
-        return shipmentRepository.findByCurrentStatus(ShipmentStatus.DELAYED);
+    public List<ShipmentResponseDTO> getDelayedShipments() {
+        sessionManager.checkValidUser(Role.ADMIN);
+
+        return shipmentRepository.findByCurrentStatus(CurrentStatus.DELAYED)
+                .stream()
+                .map(ShipmentResponseDTO::new)
+                .collect(Collectors.toList());
     }
-hr
+
     @GetMapping("/delivery-performance")
-    public List<Shipment> getDeliveredShipments() {
-        return shipmentRepository.findByCurrentStatus(ShipmentStatus.DELIVERED);
+    public List<ShipmentResponseDTO> getDeliveredShipments() {
+        sessionManager.checkValidUser(Role.ADMIN);
+        return shipmentRepository.findByCurrentStatus(CurrentStatus.DELIVERED)
+                .stream()
+                .map(ShipmentResponseDTO::new)
+                .collect(Collectors.toList());
     }
 }

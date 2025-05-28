@@ -2,6 +2,7 @@ package com.supplytracker.Controller;
 
 
 import com.supplytracker.DTO.UserDTO;
+import com.supplytracker.Enums.Role;
 import com.supplytracker.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,18 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private SessionManager sessionManager;
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
+        sessionManager.checkValidUser(Role.ADMIN);
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @PutMapping("/{id}/role")
     public ResponseEntity<UserDTO> updateRole(@PathVariable Long id, @RequestParam String role) {
+        sessionManager.checkValidUser(Role.ADMIN);
         return ResponseEntity.ok(userService.updateUserRole(id, role));
     }
 }
