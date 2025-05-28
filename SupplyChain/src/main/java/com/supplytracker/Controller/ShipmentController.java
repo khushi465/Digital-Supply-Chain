@@ -43,13 +43,13 @@ public class ShipmentController {
 
 
 @PutMapping("/{id}/assign")
-public ResponseEntity<ShipmentResponseDTO> assignTransporter(@PathVariable long id, @RequestBody User assignedTransporter) {
-    ShipmentResponseDTO shipment = shipmentService.assignTransporter(id, assignedTransporter);
+public ResponseEntity<ShipmentResponseDTO> assignTransporter(@PathVariable long id, @RequestParam long transporterId) {
+    ShipmentResponseDTO shipment = shipmentService.assignTransporter(id, transporterId);
     return new ResponseEntity<>(shipment, HttpStatus.OK);
 }
 
 @PutMapping("/{id}/status")
-    public ResponseEntity<ShipmentResponseDTO> updateStatus(@PathVariable long id, @RequestBody CurrentStatus currentStatus){
+    public ResponseEntity<ShipmentResponseDTO> updateStatus(@PathVariable long id, @RequestParam String currentStatus){
     ShipmentResponseDTO shipment=shipmentService.updateStatus(id, currentStatus);
         return new ResponseEntity<>(shipment, HttpStatus.OK);
 }
