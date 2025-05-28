@@ -5,6 +5,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import com.supplytracker.Entity.User;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class ItemDTO {
     public String getCategory() {
         return category;
     }
+
     // @NotBlank(message="Created date is required")
     // public Date createdDate;
 }

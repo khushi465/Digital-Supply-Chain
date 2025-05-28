@@ -30,7 +30,6 @@ public class Shipment {
     private Item item;
     @ManyToOne
     @JoinColumn(name = "transporter_id")
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     User assignedTransporter;
 
     @Enumerated(EnumType.STRING)

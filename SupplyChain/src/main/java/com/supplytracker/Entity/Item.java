@@ -23,8 +23,8 @@ public class Item {
     private String category;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id", nullable = false)
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User supplier;
+
     private Date createdDate;
 
     public Item(String name, String category, User supplier){
