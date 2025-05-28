@@ -19,7 +19,6 @@ import java.util.Date;
 
 public class ShipmentDTO {
 
-
     @NotNull(message = "Expected Delivery date needs to be provided.")
     private Date date;
 
@@ -34,6 +33,6 @@ public class ShipmentDTO {
 
     @ManyToOne
     @JoinColumn(name="item_id",nullable = false)
-    private Item item;
+    private Long itemId;
 
 }

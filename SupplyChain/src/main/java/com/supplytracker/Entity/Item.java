@@ -23,6 +23,8 @@ public class Item {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id", nullable = false)
     private User supplier;//fk
+
+
     private Date createdDate;
 
     public Item(String name, String category, User supplier){

@@ -13,6 +13,9 @@ public class ShipmentCheckpoint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shipment_id", nullable = false)
     private String shipmentId;
     private String status;
     private LocalDateTime timestamp;

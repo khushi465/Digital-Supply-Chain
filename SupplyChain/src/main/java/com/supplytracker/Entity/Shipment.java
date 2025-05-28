@@ -27,7 +27,7 @@ public class Shipment {
     @ManyToOne(fetch = FetchType.LAZY)
     private Item item;
     @ManyToOne
-    @JoinColumn(name = "transporter_id")
+    @JoinColumn(name = "transporter_id", nullable = false)
     User assignedTransporter;
 
     @Enumerated(EnumType.STRING)
