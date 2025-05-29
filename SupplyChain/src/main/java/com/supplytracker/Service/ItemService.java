@@ -7,6 +7,7 @@ import com.supplytracker.DTO.ItemDTO;
 import com.supplytracker.DTO.ItemResponseDTO;
 import com.supplytracker.Entity.Item;
 import com.supplytracker.Entity.User;
+import com.supplytracker.Exception.ResourceNotFoundException;
 import com.supplytracker.Repository.ItemRepository;
 import com.supplytracker.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,13 @@ public class ItemService{
 
     public ItemResponseDTO getItemById(long id) {
         Item item = itemRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Item not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Item not found with id: " + id));
+
         return new ItemResponseDTO(item);
     }
     public ItemResponseDTO createItem(ItemDTO dto) {
         User supplier = userRepository.findById(dto.getSupplierId())
-                .orElseThrow(() -> new RuntimeException("Supplier with ID " + dto.getSupplierId() + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Supplier with ID " + dto.getSupplierId() + " not found"));
 
         Item item = new Item(dto.getName(), dto.getCategory(), supplier);
         item = itemRepo.save(item);

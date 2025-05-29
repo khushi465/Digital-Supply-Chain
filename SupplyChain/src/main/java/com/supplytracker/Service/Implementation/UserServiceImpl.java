@@ -5,6 +5,7 @@ import com.supplytracker.DTO.RegisterRequestDTO;
 import com.supplytracker.DTO.UserDTO;
 import com.supplytracker.Entity.User;
 import com.supplytracker.Enums.Role;
+import com.supplytracker.Exception.InvalidCredentialsException;
 import com.supplytracker.Exception.ResourceNotFoundException;
 import com.supplytracker.Repository.UserRepository;
 import com.supplytracker.Service.UserService;
@@ -83,7 +84,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new RuntimeException("Invalid email or password"));
 
         if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
-            throw new RuntimeException("Invalid email or password");
+            throw new InvalidCredentialsException("Invalid email or password");
         }
 
         return user; // Login successful

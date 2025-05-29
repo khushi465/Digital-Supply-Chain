@@ -44,16 +44,11 @@ public class ItemController{
     public ResponseEntity<ItemResponseDTO> getItem(@PathVariable long id) {
         sessionManager.checkValidUser(Role.ADMIN,Role.SUPPLIER);
         ItemResponseDTO item=itemService.getItemById(id);
-        if(item==null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(item, HttpStatus.OK);
+
             // returns not found status 404 if item is not found
         }
-        return new ResponseEntity<>(item, HttpStatus.OK);
-        // gives a response entity of type Item with the body of the item with given id and status Ok 200
-    }
-    
-    
-    
+
 }
 // for validation
 // controlleradvice global exceptions
