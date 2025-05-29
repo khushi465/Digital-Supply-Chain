@@ -1,10 +1,8 @@
 package com.supplytracker.Service;
 import com.supplytracker.DTO.CheckpointDTO;
 import com.supplytracker.DTO.CheckpointResponseDTO;
-import com.supplytracker.DTO.ShipmentResponseDTO;
 import com.supplytracker.Entity.Shipment;
 import com.supplytracker.Entity.ShipmentCheckpoint;
-import com.supplytracker.Entity.User;
 import com.supplytracker.Exception.ResourceNotFoundException;
 import com.supplytracker.Repository.CheckpointRepository;
 import com.supplytracker.Repository.ShipmentRepository;
@@ -39,10 +37,7 @@ public class CheckpointService {
             throw new ResourceNotFoundException("No checkpoint history found for shipment ID: " + shipmentId);
         }
         return logs.stream()
-                .map(CheckpointResponseDTO::new)  // assuming you have constructor CheckpointResponseDTO(ShipmentCheckpoint)
+                .map(CheckpointResponseDTO::new)
                 .collect(Collectors.toList());
     }
 }
-
-
-//remove json ignore in entity, add response dto and use in service and controller

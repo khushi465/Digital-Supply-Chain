@@ -1,12 +1,12 @@
 package com.supplytracker.Service;
 
-import com.supplytracker.DTO.ItemResponseDTO;
 import com.supplytracker.DTO.ShipmentResponseDTO;
 import com.supplytracker.Entity.Item;
 import com.supplytracker.Enums.Role;
 import com.supplytracker.Repository.ItemRepository;
 import com.supplytracker.Repository.ShipmentRepository;
 import com.supplytracker.Repository.UserRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.supplytracker.Entity.Shipment;
@@ -25,7 +25,6 @@ public class ShipmentService {
     @Autowired
     private UserRepository userRepository;
     public List<ShipmentResponseDTO> getAllShipmentsFiltered(){
-//        filtering
         List<Shipment> shipments= shipmentRepo.findAll();
         return shipments.stream()
                 .map(ShipmentResponseDTO::new)
@@ -37,7 +36,7 @@ public class ShipmentService {
                 .orElseThrow(() -> new RuntimeException("Shipment not found with id: " + id));
         return new ShipmentResponseDTO(shipment);
     }
-    public ShipmentResponseDTO createShipment(ShipmentDTO dto){
+    public ShipmentResponseDTO createShipment(@NotNull ShipmentDTO dto){
         Item item = itemRepo.findById(dto.getItemId())
                 .orElseThrow(() -> new RuntimeException("Item with ID " + dto.getItemId() + " not found"));
         Shipment shipment=new Shipment(dto.getToLocation(), dto.getFromLocation(),dto.getDate(), dto.getCurrentStatus(), item);
@@ -57,7 +56,7 @@ public class ShipmentService {
         return new ShipmentResponseDTO(shipment);
     }
 
-    public ShipmentResponseDTO updateStatus(long id, String currentStatus){
+    public ShipmentResponseDTO updateStatus(long id, @NotNull String currentStatus){
         Shipment shipment = shipmentRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Shipment not found with id: " + id));
         CurrentStatus currentStatus1=CurrentStatus.valueOf(currentStatus.toUpperCase());

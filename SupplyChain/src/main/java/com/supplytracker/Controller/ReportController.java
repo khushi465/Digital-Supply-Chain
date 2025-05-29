@@ -4,10 +4,9 @@ import com.supplytracker.DTO.DeliveryStatusDTO;
 import com.supplytracker.DTO.ShipmentResponseDTO;
 import com.supplytracker.Enums.Role;
 import com.supplytracker.Repository.CheckpointRepository;
-import com.supplytracker.Entity.Shipment;
 import com.supplytracker.Enums.CurrentStatus;
 import com.supplytracker.Repository.ShipmentRepository;
-import com.supplytracker.Repository.CheckpointRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/reports")
+@Tag(name = "Report")
 public class ReportController {
 
     @Autowired

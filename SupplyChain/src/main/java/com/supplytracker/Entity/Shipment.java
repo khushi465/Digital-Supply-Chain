@@ -1,9 +1,7 @@
 package com.supplytracker.Entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.supplytracker.Enums.CurrentStatus;
-import com.supplytracker.Enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,14 +39,6 @@ public class Shipment {
         this.currentStatus=currentStatus;
         this.item=item;
 
-    }
-
-    public void setAssignedTransporter(User assignedTransporter) {
-        this.assignedTransporter = assignedTransporter;
-    }
-
-    public void setCurrentStatus(CurrentStatus currentStatus) {
-        this.currentStatus = currentStatus;
     }
 
     public String getFromLocation() {

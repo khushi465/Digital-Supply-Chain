@@ -1,12 +1,8 @@
 package com.supplytracker.Service.Implementation;
 
-
-import com.supplytracker.DTO.ItemDTO;
 import com.supplytracker.DTO.RegisterRequestDTO;
-import com.supplytracker.DTO.ShipmentResponseDTO;
 import com.supplytracker.DTO.UserDTO;
 import com.supplytracker.Entity.Item;
-import com.supplytracker.Entity.Shipment;
 import com.supplytracker.Entity.User;
 import com.supplytracker.Enums.Role;
 import com.supplytracker.Exception.InvalidCredentialsException;
@@ -35,33 +31,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    /*@Override
-    public User registerUser(RegisterRequestDTO requestDTO) {
-        User user = new User();
-        user.setName(requestDTO.getName());
-        user.setEmail(requestDTO.getEmail());
-        user.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
-        user.setRole(Role.SUPPLIER);
-        return userRepository.save(user);
-    }*/
-
     @Override
     public User registerUser(RegisterRequestDTO requestDTO) {
         User user = new User();
         user.setName(requestDTO.getName());
         user.setEmail(requestDTO.getEmail());
         user.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
-
-        // Check if any admin exists
         long adminCount = userRepository.countByRole(Role.ADMIN);
-
-        // Assign ADMIN only to the first user, else set null
         if (adminCount == 0) {
             user.setRole(Role.ADMIN);
         } else {
             user.setRole(null);
         }
-
         return userRepository.save(user);
     }
 
@@ -86,13 +67,6 @@ public class UserServiceImpl implements UserService {
                 item.setSupplier(replacementUser); // Set actual entity
             }
             itemRepository.saveAll(items);
-//            List<Shipment> shipments = shipmentRepository.findByTransporterId(userId);
-//            for (Shipment shipment : shipments) {
-//                shipment.setAssignedTransporter(replacementUser); // Set actual entity
-//            }
-//            shipmentRepository.saveAll(shipments);
-//saveall
-//            check for role
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid role: " + roleStr);
         }
@@ -110,7 +84,7 @@ public class UserServiceImpl implements UserService {
             throw new InvalidCredentialsException("Invalid email or password");
         }
 
-        return user; // Login successful
+        return user;
     }
 
 }

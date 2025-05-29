@@ -3,9 +3,10 @@ import java.util.List;
 
 import com.supplytracker.DTO.ItemDTO;
 import com.supplytracker.DTO.ItemResponseDTO;
-import com.supplytracker.Entity.Item;
 import com.supplytracker.Enums.Role;
+import com.supplytracker.Exception.ResourceNotFoundException;
 import com.supplytracker.Service.ItemService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/items")
+@Tag(name = "Item")
 public class ItemController{
     @Autowired
     private ItemService itemService;
@@ -42,21 +44,14 @@ public class ItemController{
     }
     @GetMapping("/{id}")
     public ResponseEntity<ItemResponseDTO> getItem(@PathVariable long id) {
-        sessionManager.checkValidUser(Role.ADMIN,Role.SUPPLIER);
-        ItemResponseDTO item=itemService.getItemById(id);
-        return new ResponseEntity<>(item, HttpStatus.OK);
-
-            // returns not found status 404 if item is not found
+        sessionManager.checkValidUser(Role.ADMIN, Role.SUPPLIER);
+        try {
+            ItemResponseDTO item = itemService.getItemById(id);
+            return new ResponseEntity<>(item, HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+    }
+
 
 }
-// for validation
-// controlleradvice global exceptions
-// @ExceptionHandler(MethodArgumentNotValidException.class)
-// public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
-//     Map<String, String> errors = new HashMap<>();
-//     ex.getBindingResult().getFieldErrors().forEach(error ->
-//         errors.put(error.getField(), error.getDefaultMessage())
-//     );
-//     return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-// }

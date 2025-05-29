@@ -1,8 +1,8 @@
 package com.supplytracker.Exception;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -81,7 +81,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(InvalidCredentialsException.class)
-    public ResponseEntity<?> handleInvalidCredentials(InvalidCredentialsException ex, WebRequest request) {
+    public ResponseEntity<?> handleInvalidCredentials(@NotNull InvalidCredentialsException ex, @NotNull WebRequest request) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", new Date());
         body.put("status", HttpStatus.UNAUTHORIZED.value());
@@ -91,7 +91,4 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
     }
-
-
-
 }

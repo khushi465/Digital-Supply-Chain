@@ -5,6 +5,7 @@ import com.supplytracker.DTO.LoginRequestDTO;
 import com.supplytracker.DTO.RegisterRequestDTO;
 import com.supplytracker.Entity.User;
 import com.supplytracker.Service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Tag(name = "User Auth")
 public class AuthController {
     @Autowired
     private UserService userService;
@@ -47,7 +49,7 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<String> logout() {
         if (sessionManager.isLoggedIn()) {
-            sessionManager.login(null); // Clear session
+            sessionManager.login(null);
             return ResponseEntity.ok("User has been logged out.");
         } else {
             return ResponseEntity.status(401).body("No user is currently logged in.");

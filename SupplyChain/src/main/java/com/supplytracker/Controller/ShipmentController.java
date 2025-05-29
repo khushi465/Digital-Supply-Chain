@@ -2,11 +2,9 @@ package com.supplytracker.Controller;
 
 import com.supplytracker.DTO.ShipmentDTO;
 import com.supplytracker.DTO.ShipmentResponseDTO;
-import com.supplytracker.Entity.User;
-import com.supplytracker.Entity.Shipment;
-import com.supplytracker.Enums.CurrentStatus;
 import com.supplytracker.Enums.Role;
 import com.supplytracker.Service.ShipmentService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/shipments")
+@Tag(name = "Shipment")
 public class ShipmentController {
     @Autowired
     private ShipmentService shipmentService;
@@ -44,7 +43,6 @@ public class ShipmentController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(shipment, HttpStatus.OK);
-        // gives a response entity of type Item with the body of the item with given id and status Ok 200
     }
 
 
@@ -61,8 +59,4 @@ public ResponseEntity<ShipmentResponseDTO> assignTransporter(@PathVariable long 
     ShipmentResponseDTO shipment=shipmentService.updateStatus(id, currentStatus);
         return new ResponseEntity<>(shipment, HttpStatus.OK);
 }
-//    @PutMapping("/api/shipments/{id}/assign")
-//
-//    @PutMapping("/api/shipments/{id}/status")
-
 }

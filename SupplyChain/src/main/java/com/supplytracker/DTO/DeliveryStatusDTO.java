@@ -1,6 +1,6 @@
 package com.supplytracker.DTO;
 
-import lombok.*;
+import lombok.Getter;
 
 @Getter
 public class DeliveryStatusDTO {

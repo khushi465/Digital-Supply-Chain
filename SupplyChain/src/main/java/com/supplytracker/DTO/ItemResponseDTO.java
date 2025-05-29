@@ -1,8 +1,8 @@
-
 package com.supplytracker.DTO;
 
 import com.supplytracker.Entity.Item;
 import lombok.Data;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
@@ -15,7 +15,7 @@ public class ItemResponseDTO {
     private long supplierId;
     private Date createdDate;
 
-    public ItemResponseDTO(Item item) {
+    public ItemResponseDTO(@NotNull Item item) {
         this.id = item.getId();
         this.name = item.getName();
         this.category = item.getCategory();
