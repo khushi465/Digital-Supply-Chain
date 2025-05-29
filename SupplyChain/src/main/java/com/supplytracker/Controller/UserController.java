@@ -27,8 +27,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}/role")
-    public ResponseEntity<UserDTO> updateRole(@PathVariable Long id, @RequestParam String role) {
+    public ResponseEntity<UserDTO> updateRole(@PathVariable Long id, @RequestParam String role, @RequestParam long replacementId) {
         sessionManager.checkValidUser(Role.ADMIN);
-        return ResponseEntity.ok(userService.updateUserRole(id, role));
+        return ResponseEntity.ok(userService.updateUserRole(id, role,replacementId));
     }
 }

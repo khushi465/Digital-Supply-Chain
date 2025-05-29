@@ -12,6 +12,7 @@ public class ItemResponseDTO {
     private String name;
     private String category;
     private String supplierName;
+    private long supplierId;
     private Date createdDate;
 
     public ItemResponseDTO(Item item) {
@@ -19,6 +20,7 @@ public class ItemResponseDTO {
         this.name = item.getName();
         this.category = item.getCategory();
         this.supplierName = item.getSupplier().getName(); // safely access lazy field
+        this.supplierId = item.getSupplier().getId(); // safely access lazy field
         this.createdDate=item.getCreatedDate();
     }
 }

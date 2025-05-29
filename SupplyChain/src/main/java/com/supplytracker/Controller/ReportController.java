@@ -1,5 +1,6 @@
 package com.supplytracker.Controller;
 
+import com.supplytracker.DTO.DeliveryStatusDTO;
 import com.supplytracker.DTO.ShipmentResponseDTO;
 import com.supplytracker.Enums.Role;
 import com.supplytracker.Repository.CheckpointRepository;
@@ -44,4 +45,17 @@ public class ReportController {
                 .map(ShipmentResponseDTO::new)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/delivery-status")
+    public DeliveryStatusDTO getDeliveryStatus() {
+        sessionManager.checkValidUser(Role.ADMIN);
+
+        long totalShipments = shipmentRepository.count();
+        long delayedShipments = checkpointLogRepository.countByStatus("DELAYED");
+        long delivered = shipmentRepository.countByCurrentStatus(CurrentStatus.DELIVERED);
+        long onTimeShipments = totalShipments - delayedShipments;
+
+        return new DeliveryStatusDTO(totalShipments, delayedShipments, onTimeShipments, delivered);
+    }
+
 }

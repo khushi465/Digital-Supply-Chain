@@ -49,6 +49,9 @@ public class ShipmentService {
                 .orElseThrow(() -> new RuntimeException("Shipment not found with id: " + id));
         User assignedTransporter = userRepository.findById(transporterId)
                 .orElseThrow(() -> new RuntimeException("Transporter not found"));
+        if(assignedTransporter.getRole()!= Role.TRANSPORTER){
+            throw new IllegalArgumentException("Invalid role");
+        }
         shipment.setAssignedTransporter(assignedTransporter);
         shipment= shipmentRepo.save(shipment);
         return new ShipmentResponseDTO(shipment);

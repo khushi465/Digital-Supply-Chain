@@ -7,6 +7,7 @@ import com.supplytracker.DTO.ItemDTO;
 import com.supplytracker.DTO.ItemResponseDTO;
 import com.supplytracker.Entity.Item;
 import com.supplytracker.Entity.User;
+import com.supplytracker.Enums.Role;
 import com.supplytracker.Exception.ResourceNotFoundException;
 import com.supplytracker.Repository.ItemRepository;
 import com.supplytracker.Repository.UserRepository;
@@ -37,7 +38,9 @@ public class ItemService{
     public ItemResponseDTO createItem(ItemDTO dto) {
         User supplier = userRepository.findById(dto.getSupplierId())
                 .orElseThrow(() -> new ResourceNotFoundException("Supplier with ID " + dto.getSupplierId() + " not found"));
-
+        if(supplier.getRole()!= Role.SUPPLIER){
+            throw new IllegalArgumentException("Invalid role");
+        }
         Item item = new Item(dto.getName(), dto.getCategory(), supplier);
         item = itemRepo.save(item);
         return new ItemResponseDTO(item);
